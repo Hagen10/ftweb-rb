@@ -1,0 +1,9 @@
+<h1>Politician Overview</h1>
+
+<ul>
+  <% @politicians.each do |politician| %>
+    <li>
+      <%= link_to politician["firstName"] + " " + politician["lastName"], politician_path(politician["id"]) %>
+    </li>
+  <% end %>
+</ul>
