@@ -131,3 +131,33 @@ p {
     background: rgba(0, 0, 0, 0.12);
     border-radius: 10px;
 }
+
+.popover {
+  position: relative;
+}
+
+.popover-text {
+  display: none;
+  position: absolute;
+  top: 120%;
+  left: 0;
+  background: #222;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  width: 220px;
+}
+
+/* Desktop: show on hover */
+@media (hover: hover) {
+  .popover:hover .popover-text {
+    display: block;
+  }
+}
+
+/* Mobile: show on focus */
+@media (hover: none) {
+  .popover:focus-within .popover-text {
+    display: block;
+  }
+}

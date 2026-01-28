@@ -13,8 +13,13 @@
     <% @politician_votes.each do |vote| %>
       <tr>
         <td><%= vote["titleShort"] %></td>
-        <td><%= vote["timestamp"] %></td>
-        <td><%= vote["conclusion"] %></td>
+        <td><%= vote["timestamp"].to_date.strftime("%d.%m.%Y") %></td>
+        <td class="popover" tabindex="0">
+          <%= vote["voteResult"] %>
+          <span class="popover-text">
+            <%= vote["conclusion"] %>
+          </span>
+        </td>
         <td><%= vote["vote"] %></td>
       </tr>
     <% end %>
