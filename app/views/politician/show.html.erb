@@ -12,7 +12,7 @@
   <tbody>
     <% @politician_votes.each do |vote| %>
       <tr>
-        <td><%= vote["title"] %></td>
+        <td><%= vote["titleShort"] %></td>
         <td><%= vote["timestamp"] %></td>
         <td><%= vote["conclusion"] %></td>
         <td><%= vote["vote"] %></td>
