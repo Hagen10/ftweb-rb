@@ -40,7 +40,7 @@
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 13px 16px;
     text-decoration: none;
     margin: 0;
     font-weight: bold;
@@ -89,7 +89,7 @@ p {
 }
 
 .people-list {
-    max-height: 60vh;
+    max-height: 80vh;
     /* limit list height */
     min-height: 10rem;
     overflow-y: auto;
@@ -133,31 +133,57 @@ p {
 }
 
 .popover {
-  position: relative;
+    position: relative;
 }
 
 .popover-text {
-  display: none;
-  position: absolute;
-  top: 120%;
-  left: 0;
-  background: #222;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 4px;
-  width: 220px;
+    display: none;
+    position: absolute;
+    top: 120%;
+    left: 0;
+    background: #222;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    width: 220px;
+    z-index: 1000;
 }
 
 /* Desktop: show on hover */
 @media (hover: hover) {
-  .popover:hover .popover-text {
-    display: block;
-  }
+    .popover:hover .popover-text {
+        display: block;
+    }
 }
 
 /* Mobile: show on focus */
 @media (hover: none) {
-  .popover:focus-within .popover-text {
-    display: block;
-  }
+    .popover:focus-within .popover-text {
+        display: block;
+    }
+}
+
+.table-wrapper {
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.data-table thead th {
+    position: sticky;
+    top: 0;
+    background: #f7f7f7;
+    z-index: 1;
 }
