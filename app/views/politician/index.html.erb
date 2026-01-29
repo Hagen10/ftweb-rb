@@ -1,0 +1,8 @@
+<h1>Select a politician</h1>
+
+<div class="people-list" role="list" aria-label="Politicians list">
+  <% @politicians.each do |politician| %>
+      <%= link_to politician["firstName"] + " " + politician["lastName"], politician_path(politician["id"]), class: "person-item", role: "list-item" %>
+  <% end %>
+</div>
+
