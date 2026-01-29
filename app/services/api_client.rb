@@ -1,5 +1,5 @@
 class ApiClient
-  BASE_URL = "http://localhost:8080" # ENV.fetch("KOTLIN_API_URL")
+  BASE_URL = ENV.fetch("KOTLIN_API_URL") { "http://localhost:8080"}
 
   def initialize
     @connection ||= Faraday.new(url: BASE_URL) do |f|
