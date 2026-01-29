@@ -3,16 +3,6 @@
 ARG RUBY_VERSION=3.4.8
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
-# # Install OS dependencies
-# RUN apt-get update -qq && apt-get install -y \
-#   build-essential \
-#   libpq-dev \
-#   nodejs \
-#   yarn \
-#   git \
-#   curl \
-#   && rm -rf /var/lib/apt/lists/*
-
 # # Set working directory
 # WORKDIR /app
 
