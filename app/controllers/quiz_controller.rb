@@ -26,7 +26,7 @@ class QuizController < ApplicationController
   def finish
     results = QuizAnswer.where(quiz_run_id: current_quiz_run)
 
-    results.as_json(only: [:test_id, :user_name])
+    results.as_json(only: [ :test_id, :user_name ])
 
     votes= results.pluck(:quiz_question_id, :choice).map do |quiz_question_id, choice |
       { caseId: QuizQuestion.find(quiz_question_id).voting_session_id, vote: choice }

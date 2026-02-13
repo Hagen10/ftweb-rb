@@ -8,8 +8,8 @@ class QuizFlow
   end
 
   def self.answer!(quiz_run, choice)
-    QuizAnswer.create!(quiz_run: quiz_run, 
-                       quiz_question: current_question(quiz_run), 
+    QuizAnswer.create!(quiz_run: quiz_run,
+                       quiz_question: current_question(quiz_run),
                        choice: choice)
 
     quiz_run.increment!(:current_index)

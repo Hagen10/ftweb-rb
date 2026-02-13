@@ -44,9 +44,9 @@ class ApiClient
     # Creating an entry for each question once! (if they already exist,
     # nothing happens)
     data.each do |item|
-      QuizQuestion.find_or_create_by!(voting_session_id: item["id"], 
-                                      title: item["title"], 
-                                      title_short: item["titleShort"], 
+      QuizQuestion.find_or_create_by!(voting_session_id: item["id"],
+                                      title: item["title"],
+                                      title_short: item["titleShort"],
                                       summary: item["resume"])
     end
   end
