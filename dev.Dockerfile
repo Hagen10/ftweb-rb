@@ -39,5 +39,7 @@ COPY . .
 # Expose Rails port
 EXPOSE 3000
 
+RUN ./bin/rails db:setup
+
 # Run Rails like `bin/rails server`
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]
