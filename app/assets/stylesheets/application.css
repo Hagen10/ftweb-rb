@@ -88,6 +88,12 @@ p {
     font-size: 17px;
 }
 
+p-soft {
+    align-self: center;
+    margin-bottom: 1rem;
+    font-size: 17px;
+}
+
 .people-list {
     max-height: 80vh;
     /* limit list height */
