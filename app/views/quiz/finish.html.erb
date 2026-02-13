@@ -1,0 +1,8 @@
+<h1>Quiz Results</h1>
+
+<div class="people-list" role="list" aria-label="Politicians list">
+  <% @voting_results.each do |vote| %>
+      <%= link_to vote["firstName"] + " " + vote["lastName"] + " " + vote["score"].to_s + "%", politician_path(vote["personId"]), class: "person-item", role: "list-item" %>
+  <% end %>
+</div>
+

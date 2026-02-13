@@ -1,0 +1,25 @@
+
+<div class="quiz-container">
+  <p>Question <%= QuizQuestion.count - (QuizQuestion.last.id - @question.id) %> of <%= QuizQuestion.count %></p>
+
+  <div class="quiz-question">
+    <h1><%= @question.title %></h1>
+    <p-soft><%= @question.summary %></p-soft>
+  </div>
+
+  <div class="quiz-actions">
+    <%= form_with url: "/quiz/answer", method: :post, local: true do |form| %>
+      <button type="submit" name="choice" value="For">
+        For
+      </button>
+      <button type="submit" name="choice" value="Imod">
+        Imod
+      </button>
+      <button type="submit" name="choice" value="Hverken for eller imod">
+        Hverken for eller imod
+      </button>
+    <% end %>
+    
+    <%= link_to "Finish Quiz", "/quiz/finish", data: { turbo_prefetch: false }, class: "box-item" %>
+  </div>
+</div>

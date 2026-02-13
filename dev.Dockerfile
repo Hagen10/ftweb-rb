@@ -37,7 +37,7 @@ RUN bundle install
 COPY . .
 
 # Expose Rails port
-EXPOSE 4200
+EXPOSE 3000
 
 # Run Rails like `bin/rails server`
 CMD ["bin/rails", "server", "-b", "0.0.0.0"]

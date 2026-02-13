@@ -4,4 +4,11 @@ class ApplicationController < ActionController::Base
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+
+  # Simple guarded `current_user` helper.
+  # If you use an authentication library later (Devise etc.), you can replace this.
+  def current_user
+    session[:guest_id] ||= SecureRandom.uuid
+  end
+  helper_method :current_user
 end
