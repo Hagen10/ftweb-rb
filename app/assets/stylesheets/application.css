@@ -193,3 +193,71 @@ p-soft {
     background: #f7f7f7;
     z-index: 1;
 }
+
+.box-item {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background: var(--hot-red);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.04);
+    font-weight: 500;
+    color: #f2f2f2;
+    text-decoration: none;
+}
+
+/* Quiz layout: pin actions to bottom of the card so they don't jump */
+.quiz-container {
+    width: 100%;
+    max-width: 48rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative; /* establishes containing block for absolute children */
+    padding-bottom: 6.5rem; /* reserve space for the fixed action row */
+}
+
+.quiz-question {
+    /* shorter minimum height since actions are absolutely positioned */
+    min-height: 4.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.quiz-actions {
+    /* Pin to viewport bottom so it never moves with content height */
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 3rem; /* distance from bottom of the viewport */
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 1100; /* sit above content */
+    max-width: calc(100% - 2rem);
+}
+
+.quiz-actions button {
+    min-width: 10rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .quiz-actions button {
+        min-width: 6rem;
+    }
+    .quiz-question {
+        min-height: 4rem;
+    }
+    .quiz-container {
+        /* keep some bottom padding so content isn't hidden behind fixed actions */
+        padding-bottom: 7.5rem;
+    }
+}
