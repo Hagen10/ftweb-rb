@@ -15,7 +15,7 @@
   <% if @results.present? %>
     <ul>
       <% @results["docs"].each do |item| %>
-        <li><%= item["speaker_name_s"] || item["text_t"] %></li>
+        <li><%= item["speaker_name_s"] %> || <%= item["text_t"] %> </li>
       <% end %>
     </ul>
   <% else %>
