@@ -11,8 +11,8 @@ class VectorApiClient
   end
 
   def search(search_query)
-    response = @connection.post("/search", 
-        {"query": search_query}, "Content-Type" => "application/json")
+    response = @connection.post("/search",
+        { "query": search_query }, "Content-Type" => "application/json")
 
     raise "API error" unless response.success?
 

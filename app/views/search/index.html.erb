@@ -10,16 +10,39 @@
 <% end %>
 
 <% if @query.present? %>
-  <h2>Results for "<%= h(@query) %>"</h2>
+<div
+  data-controller="filter">
+  <script
+    type="application/json"
+    data-filter-target="data"
+  >
+    <%= raw(@results["docs"].to_json) %>
+  </script>
 
-  <% if @results.present? %>
-    <ul>
-      <% @results["docs"].each do |item| %>
-        <li><strong><%= item["speaker_name_s"] %></strong> - <%= item["start_dt"].to_date.strftime("%d.%m.%Y") %> </li>
-        <td><%= item["text_t"] %></td>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No results found.</p>
-  <% end %>
+  <div class="table-wrapper">
+      <table class="data-table">
+    <thead>
+      <tr>
+        <th data-action="click->filter#sort"
+            data-column="speaker_name_s">
+          Politician
+        </th>
+
+        <th data-action="click->filter#sort"
+            data-column="start_dt">
+          Date
+        </th>
+
+        <th data-action="click->filter#sort"
+            data-column="text_t">
+          Text
+        </th>
+      </tr>
+    </thead>
+
+    <tbody data-filter-target="body">
+    </tbody>
+  </table>
+    </div>
+</div>
 <% end %>

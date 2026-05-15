@@ -1,6 +1,5 @@
 class SearchController < ApplicationController
     def index
-        # client = VectorApiClient.new
         @query = params[:q]
 
         return unless @query.present?
