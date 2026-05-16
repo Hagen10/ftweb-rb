@@ -1,0 +1,48 @@
+<h1>Search through Parliament summaries</h1>
+
+<%= form_with url: search_path, method: :get, local: true do %>
+  <%= text_field_tag :q, @query, placeholder: "Search..." %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<% if @error %>
+  <p class="error"><%= @error %></p>
+<% end %>
+
+<% if @query.present? %>
+<div
+  data-controller="filter">
+  <script
+    type="application/json"
+    data-filter-target="data"
+  >
+    <%= raw(@results["docs"].to_json) %>
+  </script>
+
+  <div class="table-wrapper">
+      <table class="data-table">
+    <thead>
+      <tr>
+        <th data-action="click->filter#sort"
+            data-column="speaker_name_s">
+          Politician
+        </th>
+
+        <th data-action="click->filter#sort"
+            data-column="start_dt">
+          Date
+        </th>
+
+        <th data-action="click->filter#sort"
+            data-column="text_t">
+          Text
+        </th>
+      </tr>
+    </thead>
+
+    <tbody data-filter-target="body">
+    </tbody>
+  </table>
+    </div>
+</div>
+<% end %>

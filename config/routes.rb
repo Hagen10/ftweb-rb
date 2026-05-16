@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   resources :politician, only: [ :index, :show ]
+  get "search", to: "search#index"
   get "quiz", to: "quiz#index"
   get "quiz/finish", to: "quiz#finish"
   post "quiz/answer", to: "quiz#answer"
