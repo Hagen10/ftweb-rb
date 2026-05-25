@@ -1,0 +1,67 @@
+<%= render "header", politician: @politician_info, active_tab: @active_tab %>
+
+<%# The Stimulus controller below fetches a cosine-similarity timeline
+    from the backend for each topic and draws it as an inline SVG.
+    Clicking a point fetches the most-similar / most-different speeches
+    across other politicians and shows them in the details panel. %>
+<section class="politician-tab-panel discourse"
+         role="tabpanel"
+         aria-label="Diskurs-konsistens"
+         data-controller="discourse-timeline"
+         data-discourse-timeline-timeline-url-value="<%= discourse_timeline_politician_path(@politician_info['id']) %>"
+         data-discourse-timeline-nearest-url-value="<%= nearest_speeches_politician_path(@politician_info['id']) %>">
+
+  <h2 class="discourse__heading">Vigtige politiske emner</h2>
+
+  <div class="discourse__topics">
+    <% @topics.each do |topic| %>
+      <article class="discourse__topic"
+               data-discourse-timeline-target="topic"
+               data-topic-query="<%= topic.label %>"
+               data-topic-stance-subject="<%= topic.subject %>">
+        <header class="discourse__topic-header">
+          <h3 class="discourse__topic-label"><%= topic.label %></h3>
+          <span class="discourse__topic-status"
+                data-discourse-timeline-target="status">Indlæser…</span>
+        </header>
+        <div class="discourse__chart"
+             data-discourse-timeline-target="chart"></div>
+      </article>
+    <% end %>
+  </div>
+
+  <h2 class="discourse__heading">Søg efter eget emne</h2>
+  <form class="discourse__search"
+        data-action="submit->discourse-timeline#searchCustomTopic">
+    <input type="text"
+           name="query"
+           placeholder="f.eks. ‘boligpriser i København’"
+           data-discourse-timeline-target="customQuery"
+           required>
+    <button type="submit">Vis tidslinje</button>
+  </form>
+
+  <article class="discourse__topic discourse__topic--custom"
+           data-discourse-timeline-target="customTopic"
+           hidden>
+    <header class="discourse__topic-header">
+      <h3 class="discourse__topic-label"
+          data-discourse-timeline-target="customLabel"></h3>
+      <span class="discourse__topic-status"
+            data-discourse-timeline-target="customStatus"></span>
+    </header>
+    <div class="discourse__chart"
+         data-discourse-timeline-target="customChart"></div>
+  </article>
+
+  <%# Details panel — populated when the user clicks a point. %>
+  <aside class="discourse__details"
+         data-discourse-timeline-target="details"
+         hidden>
+    <button type="button"
+            class="discourse__details-close"
+            data-action="click->discourse-timeline#closeDetails"
+            aria-label="Luk">×</button>
+    <div data-discourse-timeline-target="detailsBody"></div>
+  </aside>
+</section>

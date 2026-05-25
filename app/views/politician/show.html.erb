@@ -1,29 +1,31 @@
-<h1><%= @politician_info["firstName"] + " " + @politician_info["lastName"] %></h1>
+<%= render "header", politician: @politician_info, active_tab: @active_tab %>
 
-<div class="table-wrapper">
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Title</th>
-          <th>Date</th>
-          <th>Conclusion</th>
-          <th>Politician vote</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @politician_votes.each do |vote| %>
+<section class="politician-tab-panel" role="tabpanel" aria-label="Afstemninger">
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
         <tr>
-          <td><%= vote["titleShort"] %></td>
-          <td><%= vote["timestamp"].to_date.strftime("%d.%m.%Y") %></td>
-          <td class="popover" tabindex="0">
-            <%= approved_rejected(vote["voteResult"]) %>
-            <span class="popover-text">
-              <%= vote["conclusion"] %>
-            </span>
-          </td>
-          <td><%= vote["vote"] %></td>
+          <th>Title</th>
+            <th>Date</th>
+            <th>Conclusion</th>
+            <th>Politician vote</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        <% @politician_votes.each do |vote| %>
+          <tr>
+            <td><%= vote["titleShort"] %></td>
+            <td><%= vote["timestamp"].to_date.strftime("%d.%m.%Y") %></td>
+            <td class="popover" tabindex="0">
+              <%= approved_rejected(vote["voteResult"]) %>
+              <span class="popover-text">
+                <%= vote["conclusion"] %>
+              </span>
+            </td>
+            <td><%= vote["vote"] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
