@@ -1,0 +1,31 @@
+# Topics shown on the "Discourse Consistency" tab of a politician page.
+#
+# Each entry has:
+#   label          : Short label shown to the user (Danish). Also used as
+#                    the embedding query — KNN against this embedding
+#                    selects the top-K most on-topic speech segments by
+#                    the politician.
+#   stance_subject : One-sentence policy claim used to build NLI hypotheses
+#                    "Taleren støtter <claim>" / "Taleren er imod <claim>".
+#                    Phrase as a debatable proposition (include the
+#                    trade-off, not just the topic), otherwise the NLI
+#                    model has no axis on which to disagree and most
+#                    segments score near zero.
+#                    Falls back to `label` if omitted.
+#
+# Keep the list short (≈5–8) — every topic triggers a request to the
+# vector API when the page is opened.
+
+topics:
+  - label: "Klima og grøn omstilling"
+    stance_subject: "at Danmark hurtigt skal udfase fossile brændsler, også hvis det koster vækst og arbejdspladser"
+  - label: "Indvandring og integration"
+    stance_subject: "at Danmark skal modtage flere flygtninge og lempe reglerne for familiesammenføring"
+  - label: "Leveomkostninger og inflation"
+    stance_subject: "at staten skal give økonomisk hjælp til borgere med høje leveomkostninger, finansieret over skatten"
+  - label: "Sundhedsvæsen og hospitaler"
+    stance_subject: "at sundhedsvæsenet skal tilføres væsentligt flere offentlige midler, finansieret af højere skatter"
+  - label: "Forsvar og sikkerhedspolitik"
+    stance_subject: "at forsvarsbudgettet skal hæves markant, også hvis det betyder besparelser på velfærd"
+  - label: "Uddannelse og folkeskolen"
+    stance_subject: "at folkeskolen og uddannelsessektoren skal tilføres flere offentlige midler på bekostning af andre områder"

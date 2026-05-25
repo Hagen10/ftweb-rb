@@ -1,0 +1,43 @@
+<%#
+  Frozen header for a politician's individual pages.
+  Renders the photo placeholder, basic info, and the tab navigation
+  (Votes | Discourse Consistency). The header itself is `position: sticky`
+  so it stays visible as the tab content scrolls.
+
+  Locals:
+    politician - the politician_info hash from the API
+    active_tab - :votes | :discourse
+%>
+<header class="politician-header">
+  <div class="politician-header__main">
+    <div class="politician-header__photo" aria-hidden="true">
+      <span>👤</span>
+    </div>
+
+    <div class="politician-header__info">
+      <h1 class="politician-header__name">
+        <%= [politician["firstName"], politician["lastName"]].compact.join(" ") %>
+      </h1>
+      <%# TODO: real party / education / years-in-politics
+          need to be sourced from the backend (bio parsing). %>
+      <dl class="politician-header__meta">
+        <div><dt>Parti</dt><dd>—</dd></div>
+        <div><dt>Uddannelse</dt><dd>—</dd></div>
+        <div><dt>År i politik</dt><dd>—</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <nav class="politician-tabs" role="tablist" aria-label="Politiker-faner">
+    <%= link_to "Afstemninger",
+                politician_path(politician["id"]),
+                role: "tab",
+                class: "politician-tabs__tab #{'is-active' if active_tab == :votes}",
+                aria: { selected: active_tab == :votes } %>
+    <%= link_to "Diskurs-konsistens",
+                discourse_politician_path(politician["id"]),
+                role: "tab",
+                class: "politician-tabs__tab #{'is-active' if active_tab == :discourse}",
+                aria: { selected: active_tab == :discourse } %>
+  </nav>
+</header>

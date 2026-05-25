@@ -9,7 +9,13 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  resources :politician, only: [ :index, :show ]
+  resources :politician, only: [ :index, :show ] do
+    member do
+      get  :discourse
+      post :discourse_timeline
+      post :nearest_speeches
+    end
+  end
   get "search", to: "search#index"
   get "quiz", to: "quiz#index"
   get "quiz/finish", to: "quiz#finish"
