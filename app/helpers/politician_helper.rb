@@ -22,7 +22,7 @@ module PoliticianHelper
     "SP"  => "#7B9F4D",
     "FG"  => "#E07EA8",
     "T"   => "#7B7B7B",
-    "UFG" => "#7B7B7B",
+    "UFG" => "#7B7B7B"
   }.freeze
 
   DEFAULT_PARTY_COLOR = "#7B7B7B".freeze

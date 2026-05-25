@@ -349,6 +349,41 @@ p-soft {
     font-size: 1.1rem;
 }
 
+.discourse__info {
+    display: inline-block;
+    margin-left: 0.4em;
+    font-size: 0.85em;
+    vertical-align: 0.05em;
+    position: relative;
+}
+.discourse__info > summary {
+    display: inline-block;
+    list-style: none;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+}
+.discourse__info > summary::-webkit-details-marker { display: none; }
+.discourse__info > summary:hover,
+.discourse__info[open] > summary { color: #555; }
+.discourse__info-text {
+    position: absolute;
+    top: 1.6em;
+    left: 0;
+    z-index: 10;
+    width: max-content;
+    max-width: 22rem;
+    padding: 0.5rem 0.75rem;
+    background: #fff;
+    color: #333;
+    font-size: 0.85rem;
+    font-weight: normal;
+    line-height: 1.4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
 .discourse__topics { display: flex; flex-direction: column; gap: 1rem; }
 
 .discourse__topic {
@@ -383,6 +418,17 @@ p-soft {
     stroke-width: 1.5;
     stroke-dasharray: 4 3;
     opacity: 0.7;
+}
+
+.discourse-chart-band {
+    opacity: 0.15;
+    stroke: none;
+}
+
+.discourse-chart-mean {
+    fill: none;
+    stroke-width: 2;
+    opacity: 0.8;
 }
 
 .discourse-chart-point {

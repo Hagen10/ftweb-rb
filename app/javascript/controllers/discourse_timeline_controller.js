@@ -222,6 +222,36 @@ export default class extends Controller {
       svg.appendChild(label)
     }
 
+    // year-binned mean ± std dispersion band (stance mode, ≥2 bins) -
+    // NOTE: this is a *dispersion* band (spread of segments within a year),
+    // not a confidence interval around the mean.
+    if (stanceMode) {
+      const bins = binByYear(docs)
+      if (bins.length >= 2) {
+        const bandColor = this.partyColor(docs[0].party_s)
+        const midX = (b) => xScale(`${b.year}-07-01`)
+        const upper = bins.map((b) => `${midX(b)},${yScale(clamp(b.mean + b.std, -1, 1))}`)
+        const lower = bins.slice().reverse().map((b) => `${midX(b)},${yScale(clamp(b.mean - b.std, -1, 1))}`)
+        const band = document.createElementNS("http://www.w3.org/2000/svg", "path")
+        band.setAttribute("d", `M${upper.join(" L")} L${lower.join(" L")} Z`)
+        band.setAttribute("class", "discourse-chart-band")
+        band.setAttribute("fill", bandColor)
+        band.setAttribute("aria-label", "Spredning: ±1 standardafvigelse pr. år")
+        const bandTitle = document.createElementNS("http://www.w3.org/2000/svg", "title")
+        bandTitle.textContent = "Spredningsbånd: årlig middelværdi ±1 standardafvigelse (ikke et konfidensinterval)"
+        band.appendChild(bandTitle)
+        svg.appendChild(band)
+        const meanPath = document.createElementNS("http://www.w3.org/2000/svg", "path")
+        meanPath.setAttribute("d", bins.map((b, i) => `${i === 0 ? "M" : "L"}${midX(b)},${yScale(b.mean)}`).join(" "))
+        meanPath.setAttribute("class", "discourse-chart-mean")
+        meanPath.setAttribute("stroke", bandColor)
+        const meanTitle = document.createElementNS("http://www.w3.org/2000/svg", "title")
+        meanTitle.textContent = "Årlig gennemsnitlig stand"
+        meanPath.appendChild(meanTitle)
+        svg.appendChild(meanPath)
+      }
+    }
+
     // line through points (chronological order — docs already sorted) -
     if (docs.length > 1) {
       const d = docs
@@ -388,4 +418,30 @@ function dot(a, b) {
   let s = 0
   for (let i = 0; i < n; i++) s += a[i] * b[i]
   return s
+}
+
+function clamp(v, lo, hi) {
+  return Math.max(lo, Math.min(hi, v))
+}
+
+// Group docs by calendar year and return [{ year, mean, std, n }] sorted
+// chronologically. Only years with ≥1 stance value are returned; bins with
+// n=1 get std=0 (degenerate, but renders as a thin band).
+function binByYear(docs) {
+  const buckets = new Map()
+  for (const d of docs) {
+    if (typeof d.stance !== "number") continue
+    const y = new Date(d.meeting_date_dt).getFullYear()
+    if (!Number.isFinite(y)) continue
+    if (!buckets.has(y)) buckets.set(y, [])
+    buckets.get(y).push(d.stance)
+  }
+  const out = []
+  for (const [year, values] of buckets) {
+    const mean = values.reduce((a, b) => a + b, 0) / values.length
+    const variance = values.reduce((a, b) => a + (b - mean) ** 2, 0) / values.length
+    out.push({ year, mean, std: Math.sqrt(variance), n: values.length })
+  }
+  out.sort((a, b) => a.year - b.year)
+  return out
 }

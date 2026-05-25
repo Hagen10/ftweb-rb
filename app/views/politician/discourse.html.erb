@@ -11,7 +11,17 @@
          data-discourse-timeline-timeline-url-value="<%= discourse_timeline_politician_path(@politician_info['id']) %>"
          data-discourse-timeline-nearest-url-value="<%= nearest_speeches_politician_path(@politician_info['id']) %>">
 
-  <h2 class="discourse__heading">Vigtige politiske emner</h2>
+  <h2 class="discourse__heading">
+    Vigtige politiske emner
+    <details class="discourse__info">
+      <summary aria-label="Forklaring af graf">ⓘ</summary>
+      <span class="discourse__info-text">
+        Det farvede bånd viser spredningen af stand pr. år
+        (årlig middelværdi ± 1 standardafvigelse) — ikke et
+        konfidensinterval. Den fede linje er det årlige gennemsnit.
+      </span>
+    </details>
+  </h2>
 
   <div class="discourse__topics">
     <% @topics.each do |topic| %>
