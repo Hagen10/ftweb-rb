@@ -33,7 +33,7 @@ class PoliticianController < ApplicationController
     results = VectorApiClient.new.politician_timeline(
       speaker: politician_full_name,
       query: query,
-      stance_subject: stance_subject,
+      stance_subject: stance_subject
     )
     render json: results
   end
